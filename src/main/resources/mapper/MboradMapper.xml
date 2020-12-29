@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nuc.edu.hkj.myblog.dao.MboradMapper">
+
+    <resultMap id="mborad_user" type="nuc.edu.hkj.myblog.pojo.Mboard">
+        <id property="m_id" column="m_id"></id>
+        <result property="m_context" column="m_context"></result>
+        <result property="m_intime" column="m_intime"></result>
+        <result property="m_userid" column="m_userid"></result>
+        <association property="user" javaType="nuc.edu.hkj.myblog.pojo.User">
+            <id property="username" column="username"></id>
+            <result property="u_name" column="u_name"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectMborad" resultMap="mborad_user">
+        select m.m_id,m.m_context,m.m_intime,m.m_userid,u.username,u.u_name from mboard m,user u where m.m_userid = u.username
+    </select>
+
+    <insert id="insertMboard" parameterType="Mboard">
+        insert into mboard(m_context,m_intime,m_userid) values (#{m_context},#{m_intime},#{m_userid})
+    </insert>
+
+    <delete id="delMboard" parameterType="int">
+        delete from mboard where m_id = #{m_id}
+    </delete>
+
+</mapper>

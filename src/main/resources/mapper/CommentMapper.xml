@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nuc.edu.hkj.myblog.dao.CommentMapper">
+
+    <select id="selectComments" resultType="Comment">
+        select * from comment where c_contextid = #{cid}
+    </select>
+
+    <insert id="insertComment" parameterType="Comment">
+        insert into comment(c_message,c_mtime,c_contextid,c_userid) values (#{c_message},#{c_mtime},#{c_contextid},#{c_userid})
+    </insert>
+
+    <delete id="delComment" parameterType="int">
+        delete from comment where c_commentid = #{c_commentid}
+    </delete>
+</mapper>

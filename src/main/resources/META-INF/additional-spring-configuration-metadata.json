@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "logging.config.classpath",
+      "type": "java.lang.String",
+      "description": "Description for logging.config.classpath."
+    },
+    {
+      "name": "logging.config:classpath",
+      "type": "java.lang.String",
+      "description": "Description for logging.config:classpath."
+    }
+  ] }

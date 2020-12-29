@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nuc.edu.hkj.myblog.dao.UserMapper">
+
+    <resultMap id="user_context_comment" type="nuc.edu.hkj.myblog.pojo.User">
+        <id property="username" column="username"></id>
+        <result property="u_name" column="u_name"></result>
+        <result property="password" column="password"></result>
+        <result property="u_roles" column="u_roles"></result>
+        <collection property="contexts" column="Context" ofType="nuc.edu.hkj.myblog.pojo.Context" javaType="ArrayList">
+            <id property="c_id" column="c_id"></id>
+            <result property="c_name" column="c_name"></result>
+            <result property="c_intime" column="c_intime"></result>
+            <result property="c_context" column="c_context"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectUserByUid" parameterType="Integer" resultMap="user_context_comment">
+        select u.username,u.u_name,u.password,u.u_roles,c.c_id,c.c_name,c.c_context,c.c_intime from user u,context c where u.username=#{username}
+    </select>
+
+</mapper>
+
+

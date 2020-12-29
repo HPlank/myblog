@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nuc.edu.hkj.myblog.dao.ContextMapper">
+
+    <resultMap id="context_comment" type="nuc.edu.hkj.myblog.pojo.Context">
+        <id property="c_id" column="c_id"></id>
+        <result property="c_name" column="c_name"></result>
+        <result property="c_context" column="c_context"></result>
+        <result property="c_intime" column="c_intime"></result>
+        <result property="c_user_id" column="c_user_id"></result>
+        <collection property="comments" column="Comment" ofType="nuc.edu.hkj.myblog.pojo.Comment" javaType="ArrayList">
+            <id property="c_commentid" column="c_commentid"></id>
+            <result property="c_message" column="c_message"></result>
+            <result property="c_mtime" column="c_mtime"></result>
+            <result property="c_user_name" column="u_name"></result>
+            <result property="c_contextid" column="c_contextid"></result>
+            <result property="c_userid" column="c_userid"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectContext" resultType="Context">
+        select * from context
+    </select>
+
+    <select id="selectContextById" parameterType="int" resultMap="context_comment">
+        select c.c_id,c.c_name,c.c_context,c.c_intime,c.c_user_id,cc.c_commentid,cc.c_message,cc.c_mtime,cc.c_contextid,cc.c_userid,u.u_name from context c,comment cc,user u where c.c_id = #{cid} and cc.c_contextid = c.c_id and cc.c_userid = u.username
+    </select>
+
+    <insert id="insertContext" parameterType="Context">
+        insert into context(c_name,c_context,c_intime,c_user_id) values (#{c_name},#{c_context},#{c_intime},#{c_user_id})
+    </insert>
+
+    <update id="updataContext" parameterType="Context">
+        update context SET c_name=#{c_name},c_context = #{c_context},c_intime = #{c_intime},c_user_id = #{c_user_id} where c_id = #{c_id}
+    </update>
+
+    <delete id="delContext" parameterType="int">
+        DELETE FROM context where c_id = #{cid}
+    </delete>
+
+</mapper>
